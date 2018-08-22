@@ -38,31 +38,19 @@ customElements.define('rj-tabs', class extends RJElement {
       {
         class: 'rj-tabs'
       },
-      [
-
-        html(
+      ['valid', 'expired'].map((tab) => {
+        return html(
           'div',
           {
             class: 'rj-tabs-tab',
-            'data-is-active': () => this.props.activeTab === 'valid',
-            'on-click': () => this.props.setTab('valid')
+            'data-is-active': () => this.props.activeTab === tab,
+            'on-click': () => this.props.setTab(tab)
           },
           [
-            html('a', {}, 'Valid')
-          ]),
-
-        html(
-          'div',
-          {
-            class: 'rj-tabs-tab',
-            'data-is-active': () => this.props.activeTab === 'expired',
-            'on-click': () => this.props.setTab('expired')
-          },
-          [
-            html('a', {}, 'Expired')
-          ])
-
-      ])(this);
+            html('a', {}, tab)
+          ]);
+      })
+    )(this);
   }
 });
 
@@ -110,29 +98,22 @@ customElements.define('rj-contents', class extends RJElement {
       },
       [
 
-        html('div', {class: 'rj-contents-inner'}, [
-
-          html(
-            'div',
-            {
-              class: 'rj-contents-tab',
-              'data-tab': 'valid',
-            },
-            [
-              html('a', {}, 'Valid Content')
-            ]),
-
-          html(
-            'div',
-            {
-              class: 'rj-contents-tab',
-              'data-tab': 'expired',
-            },
-            [
-              html('a', {}, 'Expired Content')
-            ])
-
-        ])
+        html(
+          'div',
+          {
+            class: 'rj-contents-inner'
+          },
+          ['valid', 'expired'].map((tab) => {
+            return html(
+              'div',
+              {
+                class: 'rj-contents-tab',
+                'data-tab': tab,
+              },
+              `${tab} content`
+            );
+          })
+        )
 
       ])(this);
   }
