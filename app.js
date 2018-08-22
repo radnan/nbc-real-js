@@ -85,6 +85,7 @@ customElements.define('rj-contents', class extends RJElement {
       .rj-contents-tab {
           flex: 1;
           padding: 20px;
+          text-transform: capitalize;
       }
       </style>
     `;
