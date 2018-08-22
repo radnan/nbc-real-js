@@ -48,7 +48,8 @@ customElements.define('rj-tabs', class extends RJElement {
           },
           [
             html('a', {}, tab)
-          ]);
+          ]
+        );
       })
     )(this);
   }
@@ -115,7 +116,8 @@ customElements.define('rj-contents', class extends RJElement {
           })
         )
 
-      ])(this);
+      ]
+    )(this);
   }
 });
 
@@ -139,14 +141,17 @@ customElements.define('rj-app', class extends RJElement {
           {
             'props-activeTab': () => this.props.activeTab,
             'props-on-setTab': (tab) => this.props.activeTab = tab,
-          }),
+          }
+        ),
 
         html(
           'rj-contents',
           {
             'props-activeTab': () => this.props.activeTab,
-          }),
+          }
+        ),
 
-      ])(this);
+      ]
+    )(this);
   }
 });
