@@ -44,7 +44,7 @@ customElements.define('rj-tabs', class extends RJElement {
           {
             class: 'rj-tabs-tab',
             'data-is-active': () => this.props.activeTab === tab,
-            'on-click': () => this.props.setTab(tab)
+            'on-click': () => this.props.onSetTab(tab)
           },
           tab
         );
@@ -139,7 +139,7 @@ customElements.define('rj-app', class extends RJElement {
           'rj-tabs',
           {
             'props-activeTab': () => this.props.activeTab,
-            'props-on-setTab': (tab) => this.props.activeTab = tab,
+            'props-onSetTab': (tab) => this.props.activeTab = tab,
           }
         ),
 
