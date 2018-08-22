@@ -46,9 +46,7 @@ customElements.define('rj-tabs', class extends RJElement {
             'data-is-active': () => this.props.activeTab === tab,
             'on-click': () => this.props.setTab(tab)
           },
-          [
-            html('a', {}, tab)
-          ]
+          tab
         );
       })
     )(this);
