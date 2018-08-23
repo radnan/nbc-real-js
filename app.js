@@ -56,7 +56,7 @@ customElements.define('rj-tabs', class extends RJElement {
           tab
         );
       })
-    )(this);
+    );
   }
 });
 
@@ -132,7 +132,7 @@ customElements.define('rj-contents', class extends RJElement {
         )
 
       ]
-    )(this);
+    );
   }
 });
 
@@ -205,7 +205,7 @@ customElements.define('rj-app', class extends RJElement {
         ),
 
       ]
-    )(this);
+    );
   }
 });
 
