@@ -33,6 +33,13 @@ customElements.define('rj-tabs', class extends RJElement {
   }
 
   render() {
+    // return `
+    //   <div class="rj-tabs">
+    //     <div class="rj-tabs-tab" data-is-active="true" onclick="">Tab 1</div>
+    //     <div class="rj-tabs-tab" data-is-active="false" onclick="">Tab 2</div>
+    //   </div>
+    // `;
+
     return html(
       'div',
       {
@@ -90,6 +97,15 @@ customElements.define('rj-contents', class extends RJElement {
   }
 
   render() {
+    // return `
+    //   <div class="rj-contents" data-active-tab="0">
+    //     <div class="rj-contents-inner">
+    //       <div class="rj-contents-tab" data-tab="0">Tab 1 Content</div>
+    //       <div class="rj-contents-tab" data-tab="1">Tab 2 Content</div>
+    //     </div>
+    //   </div>
+    // `;
+
     return html(
       'div',
       {
@@ -144,6 +160,14 @@ customElements.define('rj-app', class extends RJElement {
   }
 
   render() {
+    // return `
+    //   <div class="rj-app">
+    //     <rj-tabs></rj-tabs>
+    //     <rj-contents></rj-contents>
+    //     <button>Replace Content</button>
+    //   </div>
+    // `;
+
     return html(
       'div',
       {
