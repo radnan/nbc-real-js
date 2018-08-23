@@ -38,7 +38,7 @@ customElements.define('rj-tabs', class extends RJElement {
       {
         class: 'rj-tabs'
       },
-      ['valid', 'expired'].map((tab) => {
+      () => this.props.tabs.map((tab) => {
         return html(
           'div',
           {
@@ -103,7 +103,7 @@ customElements.define('rj-contents', class extends RJElement {
           {
             class: 'rj-contents-inner'
           },
-          ['valid', 'expired'].map((tab) => {
+          () => this.props.tabs.map((tab) => {
             return html(
               'div',
               {
@@ -125,6 +125,7 @@ customElements.define('rj-app', class extends RJElement {
     super();
 
     this.props.activeTab = 'valid';
+    this.props.tabs = ['valid', 'expired'];
   }
 
   render() {
@@ -140,6 +141,7 @@ customElements.define('rj-app', class extends RJElement {
           {
             'props-activeTab': () => this.props.activeTab,
             'props-onSetTab': (tab) => this.props.activeTab = tab,
+            'props-tabs': () => this.props.tabs,
           }
         ),
 
@@ -147,6 +149,7 @@ customElements.define('rj-app', class extends RJElement {
           'rj-contents',
           {
             'props-activeTab': () => this.props.activeTab,
+            'props-tabs': () => this.props.tabs,
           }
         ),
 
