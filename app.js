@@ -67,16 +67,16 @@ customElements.define('rj-contents', class extends RJElement {
           width: 200%;
       }
       
-      .rj-contents[data-active-tab="valid"] .rj-contents-inner {
+      .rj-contents[data-active-tab="0"] .rj-contents-inner {
           transform: translateX(0);
       }
       
-      .rj-contents[data-active-tab="expired"] .rj-contents-inner {
+      .rj-contents[data-active-tab="1"] .rj-contents-inner {
           transform: translateX(-50%);
       }
       
-      .rj-contents[data-active-tab="valid"] [data-tab="expired"],
-      .rj-contents[data-active-tab="expired"] [data-tab="valid"] {
+      .rj-contents[data-active-tab="0"] [data-tab="0"],
+      .rj-contents[data-active-tab="1"] [data-tab="1"] {
           height: 0;
       }
       
@@ -94,7 +94,7 @@ customElements.define('rj-contents', class extends RJElement {
       'div',
       {
         class: 'rj-contents',
-        'data-active-tab': () => this.props.activeTab
+        'data-active-tab': () => this.props.tabs.indexOf(this.props.activeTab)
       },
       [
 
@@ -108,7 +108,7 @@ customElements.define('rj-contents', class extends RJElement {
               'div',
               {
                 class: 'rj-contents-tab',
-                'data-tab': tab,
+                'data-tab': this.props.tabs.indexOf(tab),
               },
               `${tab} content`
             );
