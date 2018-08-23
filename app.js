@@ -1,4 +1,4 @@
-import {html} from './lib/html.js';
+import {h} from './lib/h.js';
 import {RJElement} from './lib/elements.js';
 
 customElements.define('rj-tabs', class extends RJElement {
@@ -40,13 +40,13 @@ customElements.define('rj-tabs', class extends RJElement {
     //   </div>
     // `;
 
-    return html(
+    return h(
       'div',
       {
         class: 'rj-tabs'
       },
       () => this.props.tabs.map((tab) => {
-        return html(
+        return h(
           'div',
           {
             class: 'rj-tabs-tab',
@@ -106,7 +106,7 @@ customElements.define('rj-contents', class extends RJElement {
     //   </div>
     // `;
 
-    return html(
+    return h(
       'div',
       {
         class: 'rj-contents',
@@ -114,13 +114,13 @@ customElements.define('rj-contents', class extends RJElement {
       },
       [
 
-        html(
+        h(
           'div',
           {
             class: 'rj-contents-inner'
           },
           () => this.props.tabs.map((tab) => {
-            return html(
+            return h(
               'div',
               {
                 class: 'rj-contents-tab',
@@ -168,14 +168,14 @@ customElements.define('rj-app', class extends RJElement {
     //   </div>
     // `;
 
-    return html(
+    return h(
       'div',
       {
         class: 'rj-app'
       },
       [
 
-        html(
+        h(
           'rj-tabs',
           {
             'props-activeTab': () => this.props.activeTab,
@@ -184,7 +184,7 @@ customElements.define('rj-app', class extends RJElement {
           }
         ),
 
-        html(
+        h(
           'rj-contents',
           {
             'props-activeTab': () => this.props.activeTab,
@@ -192,7 +192,7 @@ customElements.define('rj-app', class extends RJElement {
           }
         ),
 
-        html(
+        h(
           'button',
           {
             'on-click': () => {
