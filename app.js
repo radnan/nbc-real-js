@@ -128,6 +128,21 @@ customElements.define('rj-app', class extends RJElement {
     this.props.tabs = ['valid', 'expired'];
   }
 
+  getStyle() {
+    return `
+      <style>
+      button {
+        background-color: #f2f2f2;
+        border: 0;
+        border-radius: 3px;
+        display: block;
+        margin: auto;
+        padding: 10px 20px;
+      }
+      </style>
+    `;
+  }
+
   render() {
     return html(
       'div',
@@ -153,7 +168,25 @@ customElements.define('rj-app', class extends RJElement {
           }
         ),
 
+        html(
+          'button',
+          {
+            'on-click': () => {
+              let words = getRandomWords();
+              this.props.tabs = words;
+              this.props.activeTab = words[Math.floor(Math.random() * words.length)];
+            },
+          },
+          'Replace Content'
+        ),
+
       ]
     )(this);
   }
 });
+
+function getRandomWords() {
+  let adj = ['valid', 'expired', 'magnetic', 'winter'];
+  let noun = ['turkey', 'hero', 'fairy', 'soldier'];
+  return [adj[Math.floor(Math.random() * adj.length)], noun[Math.floor(Math.random() * noun.length)]];
+}
