@@ -225,12 +225,23 @@ customElements.define('rj-app', class extends RJElement {
   handleResetWords() {
     let words = getRandomWords();
     this.props.tabs = words;
-    this.props.activeTab = words[Math.floor(Math.random() * words.length)];
+    this.props.activeTab = rand(words);
   }
 });
 
 function getRandomWords() {
-  let adj = ['valid', 'expired', 'magnetic', 'winter'];
-  let noun = ['turkey', 'hero', 'fairy', 'soldier'];
-  return [adj[Math.floor(Math.random() * adj.length)], noun[Math.floor(Math.random() * noun.length)]];
+  let adj = ['jive', 'infinity', 'winter'];
+  let noun = ['turkey', 'war', 'soldier'];
+  let r = cycle(3);
+  return [adj[r], noun[r]];
+}
+
+function cycle(n) {
+  cycle.n = cycle.n || 0;
+  cycle.n++;
+  return (cycle.n - 1) % n;
+}
+
+function rand(n) {
+  return n[Math.floor(Math.random() * n.length)];
 }
