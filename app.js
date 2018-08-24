@@ -2,6 +2,12 @@ import {h} from './lib/h.js';
 import {RJElement} from './lib/elements.js';
 
 customElements.define('rj-tabs', class extends RJElement {
+  constructor() {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   getStyle() {
     return `
       <style>
@@ -51,12 +57,17 @@ customElements.define('rj-tabs', class extends RJElement {
           {
             class: 'rj-tabs-tab',
             'data-is-active': this.props.activeTab === tab,
-            'on-click': () => this.props.onSetTab(tab)
+            'data-tab': tab,
+            'on-click': this.handleClick
           },
           tab
         );
       })
     );
+  }
+
+  handleClick(e) {
+    this.props.onSetTab(e.target.dataset.tab);
   }
 });
 
@@ -142,6 +153,9 @@ customElements.define('rj-app', class extends RJElement {
 
     this.props.activeTab = 'valid';
     this.props.tabs = ['valid', 'expired'];
+
+    this.handleSetTab = this.handleSetTab.bind(this);
+    this.handleResetWords = this.handleResetWords.bind(this);
   }
 
   getStyle() {
@@ -179,7 +193,7 @@ customElements.define('rj-app', class extends RJElement {
           'rj-tabs',
           {
             'props-activeTab': this.props.activeTab,
-            'props-onSetTab': (tab) => this.props.activeTab = tab,
+            'props-onSetTab': this.handleSetTab,
             'props-tabs': this.props.tabs,
           }
         ),
@@ -195,17 +209,23 @@ customElements.define('rj-app', class extends RJElement {
         h(
           'button',
           {
-            'on-click': () => {
-              let words = getRandomWords();
-              this.props.tabs = words;
-              this.props.activeTab = words[Math.floor(Math.random() * words.length)];
-            },
+            'on-click': this.handleResetWords,
           },
           'Replace Content'
         ),
 
       ]
     );
+  }
+
+  handleSetTab(tab) {
+    this.props.activeTab = tab;
+  }
+
+  handleResetWords() {
+    let words = getRandomWords();
+    this.props.tabs = words;
+    this.props.activeTab = words[Math.floor(Math.random() * words.length)];
   }
 });
 
