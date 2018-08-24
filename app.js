@@ -45,12 +45,12 @@ customElements.define('rj-tabs', class extends RJElement {
       {
         class: 'rj-tabs'
       },
-      () => this.props.tabs.map((tab) => {
+      this.props.tabs.map((tab) => {
         return h(
           'div',
           {
             class: 'rj-tabs-tab',
-            'data-is-active': () => this.props.activeTab === tab,
+            'data-is-active': this.props.activeTab === tab,
             'on-click': () => this.props.onSetTab(tab)
           },
           tab
@@ -110,7 +110,7 @@ customElements.define('rj-contents', class extends RJElement {
       'div',
       {
         class: 'rj-contents',
-        'data-active-tab': () => this.props.tabs.indexOf(this.props.activeTab)
+        'data-active-tab': this.props.tabs.indexOf(this.props.activeTab)
       },
       [
 
@@ -119,7 +119,7 @@ customElements.define('rj-contents', class extends RJElement {
           {
             class: 'rj-contents-inner'
           },
-          () => this.props.tabs.map((tab) => {
+          this.props.tabs.map((tab) => {
             return h(
               'div',
               {
@@ -178,17 +178,17 @@ customElements.define('rj-app', class extends RJElement {
         h(
           'rj-tabs',
           {
-            'props-activeTab': () => this.props.activeTab,
+            'props-activeTab': this.props.activeTab,
             'props-onSetTab': (tab) => this.props.activeTab = tab,
-            'props-tabs': () => this.props.tabs,
+            'props-tabs': this.props.tabs,
           }
         ),
 
         h(
           'rj-contents',
           {
-            'props-activeTab': () => this.props.activeTab,
-            'props-tabs': () => this.props.tabs,
+            'props-activeTab': this.props.activeTab,
+            'props-tabs': this.props.tabs,
           }
         ),
 
