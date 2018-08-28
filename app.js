@@ -1,5 +1,6 @@
 import {h} from './lib/h.js';
 import {RJElement} from './lib/elements.js';
+import {store} from './lib/store.js';
 
 customElements.define('rj-tabs', class extends RJElement {
   constructor() {
@@ -51,12 +52,12 @@ customElements.define('rj-tabs', class extends RJElement {
       {
         class: 'rj-tabs'
       },
-      this.props.tabs.map((tab) => {
+      store.tabs.map((tab) => {
         return h(
           'div',
           {
             class: 'rj-tabs-tab',
-            'data-is-active': this.props.activeTab === tab,
+            'data-is-active': store.activeTab === tab,
             'data-tab': tab,
             'on-click': this.handleClick
           },
@@ -67,7 +68,7 @@ customElements.define('rj-tabs', class extends RJElement {
   }
 
   handleClick(e) {
-    this.props.onSetTab(e.target.dataset.tab);
+    store.activeTab = e.target.dataset.tab;
   }
 });
 
@@ -121,7 +122,8 @@ customElements.define('rj-contents', class extends RJElement {
       'div',
       {
         class: 'rj-contents',
-        'data-active-tab': this.props.tabs.indexOf(this.props.activeTab)
+        'data-active-tab': store.tabs.indexOf(store.activeTab),
+        'data-tabs': store.tabs.length,
       },
       [
 
@@ -130,12 +132,12 @@ customElements.define('rj-contents', class extends RJElement {
           {
             class: 'rj-contents-inner'
           },
-          this.props.tabs.map((tab) => {
+          store.tabs.map((tab) => {
             return h(
               'div',
               {
                 class: 'rj-contents-tab',
-                'data-tab': this.props.tabs.indexOf(tab),
+                'data-tab': store.tabs.indexOf(tab),
               },
               `${tab} content`
             );
@@ -151,10 +153,9 @@ customElements.define('rj-app', class extends RJElement {
   constructor() {
     super();
 
-    this.props.activeTab = 'valid';
-    this.props.tabs = ['valid', 'expired'];
+    store.activeTab = 'valid';
+    store.tabs = ['valid', 'expired'];
 
-    this.handleSetTab = this.handleSetTab.bind(this);
     this.handleResetWords = this.handleResetWords.bind(this);
   }
 
@@ -189,22 +190,9 @@ customElements.define('rj-app', class extends RJElement {
       },
       [
 
-        h(
-          'rj-tabs',
-          {
-            'props-activeTab': this.props.activeTab,
-            'props-onSetTab': this.handleSetTab,
-            'props-tabs': this.props.tabs,
-          }
-        ),
+        h('rj-tabs'),
 
-        h(
-          'rj-contents',
-          {
-            'props-activeTab': this.props.activeTab,
-            'props-tabs': this.props.tabs,
-          }
-        ),
+        h('rj-contents'),
 
         h(
           'button',
@@ -218,14 +206,10 @@ customElements.define('rj-app', class extends RJElement {
     );
   }
 
-  handleSetTab(tab) {
-    this.props.activeTab = tab;
-  }
-
   handleResetWords() {
     let words = getRandomWords();
-    this.props.tabs = words;
-    this.props.activeTab = rand(words);
+    store.tabs = words;
+    store.activeTab = rand(words);
   }
 });
 
