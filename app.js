@@ -72,6 +72,38 @@ customElements.define('rj-tabs', class extends RJElement {
   }
 });
 
+customElements.define('rj-message', class extends RJElement {
+  getStyle() {
+    return `
+      <style>
+      .rj-message {
+        background-color: #fcf8e3;
+        border: 1px solid #faebcc;
+        border-radius: 3px;
+        color: #8a6d3b;
+        padding: 8px;
+      }
+      </style>
+    `;
+  }
+
+  render() {
+    // return `
+    //   <div class="rj-message">
+    //     <p>{{ content }}</p>
+    //   </div>
+    // `;
+
+    return h(
+      'div',
+      {
+        class: 'rj-message'
+      },
+      `${this.props.content} Content`
+    );
+  }
+});
+
 customElements.define('rj-contents', class extends RJElement {
   getStyle() {
     return `
@@ -110,10 +142,14 @@ customElements.define('rj-contents', class extends RJElement {
 
   render() {
     // return `
-    //   <div class="rj-contents" data-active-tab="0">
+    //   <div class="rj-contents" data-active-tab="0" data-tabs="2">
     //     <div class="rj-contents-inner">
-    //       <div class="rj-contents-tab" data-tab="0">Tab 1 Content</div>
-    //       <div class="rj-contents-tab" data-tab="1">Tab 2 Content</div>
+    //       <div class="rj-contents-tab" data-tab="0">
+    //         <rj-message></rj-message>
+    //       </div>
+    //       <div class="rj-contents-tab" data-tab="1">
+    //         <rj-message></rj-message>
+    //       </div>
     //     </div>
     //   </div>
     // `;
@@ -125,26 +161,27 @@ customElements.define('rj-contents', class extends RJElement {
         'data-active-tab': store.tabs.indexOf(store.activeTab),
         'data-tabs': store.tabs.length,
       },
-      [
-
-        h(
-          'div',
-          {
-            class: 'rj-contents-inner'
-          },
-          store.tabs.map((tab) => {
-            return h(
-              'div',
+      h(
+        'div',
+        {
+          class: 'rj-contents-inner'
+        },
+        store.tabs.map((tab) => {
+          return h(
+            'div',
+            {
+              class: 'rj-contents-tab',
+              'data-tab': store.tabs.indexOf(tab),
+            },
+            h(
+              'rj-message',
               {
-                class: 'rj-contents-tab',
-                'data-tab': store.tabs.indexOf(tab),
-              },
-              `${tab} content`
-            );
-          })
-        )
-
-      ]
+                'props-content': tab
+              }
+            )
+          );
+        })
+      )
     );
   }
 });
